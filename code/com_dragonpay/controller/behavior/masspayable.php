@@ -111,8 +111,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                 'currency'    => 'PHP',
                 'description' => "Payout Request for Payout #{$data['merchantTxnId']}",
                 'procId'      => 'BDO',
-                'runDate'     => gmdate('Y-m-d'),
-                'mobileNo'    => '123'
+                'runDate'     => date('Y-m-d', strtotime("+2 days"))
             );
 
             $parameters = array_merge($parameters, $data);
