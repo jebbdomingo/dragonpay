@@ -103,29 +103,33 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
             $config = $this->getObject('com://admin/nucleonplus.model.configs')->item('dragonpay')->fetch();
 
             $dragonpay = $config->getJsonValue();
-            $entity    = $this->getEntity($command);
-            $data      = $this->getData($entity);
+            $entities  = $this->getEntity($command);
 
-            $parameters = array(
-                'apiKey'      => $dragonpay->payout_api_key,
-                'currency'    => 'PHP',
-                'description' => "Payout Request for Payout #{$data['merchantTxnId']}",
-                'procId'      => 'BDO',
-                'runDate'     => date('Y-m-d', strtotime("+2 days"))
-            );
+            foreach ($entities as $entity)
+            {
+                $data = $this->getData($entity);
 
-            $parameters = array_merge($parameters, $data);
+                $parameters = array(
+                    'apiKey'      => $dragonpay->payout_api_key,
+                    'currency'    => 'PHP',
+                    'description' => "Payout Request for Payout #{$data['merchantTxnId']}",
+                    'procId'      => 'BDO',
+                    'runDate'     => date('Y-m-d', strtotime("+2 days"))
+                );
 
-            $url      = $env == 'production' ? "{$dragonpay->payout_url_prod}" : "{$dragonpay->payout_url_test}";
-            $client   = new SoapClient("{$url}?wsdl");
-            $resource = $client->RequestPayoutEx($parameters);
-            $result   = $resource->RequestPayoutExResult;
+                $parameters = array_merge($parameters, $data);
 
-            $controller->add(array(
-                'id'     => $data['merchantTxnId'],
-                'txnid'  => $data['merchantTxnId'],
-                'result' => $result
-            ));
+                $url      = $env == 'production' ? "{$dragonpay->payout_url_prod}" : "{$dragonpay->payout_url_test}";
+                $client   = new SoapClient("{$url}?wsdl");
+                $resource = $client->RequestPayoutEx($parameters);
+                $result   = $resource->RequestPayoutExResult;
+
+                $controller->add(array(
+                    'id'     => $data['merchantTxnId'],
+                    'txnid'  => $data['merchantTxnId'],
+                    'result' => $result
+                ));
+            }
         }
     }
 
