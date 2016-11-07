@@ -113,7 +113,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             $url = $env == 'production' ? "{$dragonpay->url_prod}?" : "{$dragonpay->url_test}?";
             $url .= http_build_query($parameters, '', '&');
 
-            $this->getContext()->response->setRedirect(JRoute::_($url, false));
+            // $this->getContext()->response->setRedirect(JRoute::_($url, false));
         }
     }
 
