@@ -71,6 +71,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                 'procDetail'    => 'account_number',
                 'email'         => 'email',
                 'mobileNo'      => 'mobile',
+                'runDate'       => 'run_date',
             )
         ));
 
@@ -113,8 +114,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                     'apiKey'      => $dragonpay->payout_api_key,
                     'currency'    => 'PHP',
                     'description' => "Payout Request for Payout #{$data['merchantTxnId']}",
-                    'procId'      => 'BDO',
-                    'runDate'     => date('Y-m-d', strtotime("+2 days"))
+                    'procId'      => 'BDO'
                 );
 
                 $parameters = array_merge($parameters, $data);
@@ -184,7 +184,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
      */
     final public function getName()
     {
-        return 'loggable';
+        return 'masspayable';
     }
 
     /**

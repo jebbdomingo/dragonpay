@@ -166,7 +166,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
      */
     final public function getName()
     {
-        return 'loggable';
+        return 'onlinepayable';
     }
 
     /**
