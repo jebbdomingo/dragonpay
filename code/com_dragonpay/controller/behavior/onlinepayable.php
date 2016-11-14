@@ -93,27 +93,60 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             $entity    = $this->getEntity($command);
             $data      = $this->getData($entity);
 
+            // $parameters = array(
+            //     'merchantid'  => $dragonpay->merchant_id,
+            //     'txnid'       => $data['txnid'],
+            //     'amount'      => number_format($data['amount'], 2, '.', ''),
+            //     'ccy'         => 'PHP',
+            //     'description' => 'Order description.',
+            //     'email'       => $this->getObject('user')->getEmail(),
+            // );
+
+
+
+
             $parameters = array(
-                'merchantid'  => $dragonpay->merchant_id,
-                'txnid'       => $data['txnid'],
-                'amount'      => number_format($data['amount'], 2, '.', ''),
-                'ccy'         => 'PHP',
-                'description' => 'Order description.',
-                'email'       => $this->getObject('user')->getEmail(),
+                'merchantId'    => $dragonpay->merchant_id,
+                'password'      => $dragonpay->password,
+                'merchantTxnId' => $data['txnid'],
+                'amount'        => number_format($data['amount'], 2, '.', ''),
+                'ccy'           => 'PHP',
+                'description'   => 'Order description.',
+                'email'         => $this->getObject('user')->getEmail(),
             );
 
-            $parameters['key'] = $dragonpay->password;
-            $digest_string     = implode(':', $parameters);
+            $url      = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
+            $client   = new SoapClient("{$url}?wsdl");
+            $resource = $client->GetTxnToken($parameters);
+            $token    = $resource->GetTxnTokenResult;
 
-            unset($parameters['key']);
-
-            $parameters['digest'] = sha1($digest_string);
-            $parameters['mode']   = $data['mode'];
+            var_dump($parameters);
+            var_dump($url);
+            var_dump($token);
 
             $url = $env == 'production' ? "{$dragonpay->url_prod}?" : "{$dragonpay->url_test}?";
-            $url .= http_build_query($parameters, '', '&');
-
+            $query['token'] = $token;
+            $query['mode']  = $data['mode'];
+            $url .= http_build_query($query, '', '&');
             $this->getContext()->response->setRedirect(JRoute::_($url, false));
+
+            var_dump($url);
+            die('debugging');
+
+
+
+            // $parameters['key'] = $dragonpay->password;
+            // $digest_string     = implode(':', $parameters);
+
+            // unset($parameters['key']);
+
+            // $parameters['digest'] = sha1($digest_string);
+            // $parameters['mode']   = $data['mode'];
+
+            // $url = $env == 'production' ? "{$dragonpay->url_prod}?" : "{$dragonpay->url_test}?";
+            // $url .= http_build_query($parameters, '', '&');
+
+            // $this->getContext()->response->setRedirect(JRoute::_($url, false));
         }
     }
 
