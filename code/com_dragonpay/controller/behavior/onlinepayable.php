@@ -120,18 +120,13 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             $resource = $client->GetTxnToken($parameters);
             $token    = $resource->GetTxnTokenResult;
 
-            var_dump($parameters);
-            var_dump($url);
-            var_dump($token);
-
             $url = $env == 'production' ? "{$dragonpay->url_prod}?" : "{$dragonpay->url_test}?";
             $query['token'] = $token;
             $query['mode']  = $data['mode'];
             $url .= http_build_query($query, '', '&');
             $this->getContext()->response->setRedirect(JRoute::_($url, false));
 
-            var_dump($url);
-            die('debugging');
+
 
 
 
