@@ -93,18 +93,6 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             $entity    = $this->getEntity($command);
             $data      = $this->getData($entity);
 
-            // $parameters = array(
-            //     'merchantid'  => $dragonpay->merchant_id,
-            //     'txnid'       => $data['txnid'],
-            //     'amount'      => number_format($data['amount'], 2, '.', ''),
-            //     'ccy'         => 'PHP',
-            //     'description' => 'Order description.',
-            //     'email'       => $this->getObject('user')->getEmail(),
-            // );
-
-
-
-
             $parameters = array(
                 'merchantId'    => $dragonpay->merchant_id,
                 'password'      => $dragonpay->password,
@@ -125,23 +113,6 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             $query['mode']    = $data['mode'];
             $url .= http_build_query($query, '', '&');
             $this->getContext()->response->setRedirect(JRoute::_($url, false));
-
-
-
-
-
-            // $parameters['key'] = $dragonpay->password;
-            // $digest_string     = implode(':', $parameters);
-
-            // unset($parameters['key']);
-
-            // $parameters['digest'] = sha1($digest_string);
-            // $parameters['mode']   = $data['mode'];
-
-            // $url = $env == 'production' ? "{$dragonpay->url_prod}?" : "{$dragonpay->url_test}?";
-            // $url .= http_build_query($parameters, '', '&');
-
-            // $this->getContext()->response->setRedirect(JRoute::_($url, false));
         }
     }
 
