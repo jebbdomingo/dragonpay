@@ -119,15 +119,22 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
                     $resource = $client->CancelTransaction($parameters);
                     $status   = $resource->CancelTransactionResult;
 
+
+                    if ($status === 0)
+                    {
+                        $data['status'] = ComDragonpayModelEntityPayment::STATUS_VOID;
+                        
+                        $result = true;
+                    }
+                    else
+                    {
+                        $data['status'] = ComDragonpayModelEntityPayment::STATUS_VOID_ATTEMPT;
+                        $this->getContext()->response->addMessage("Dragonpay cancel action on txnid {$data['txnId']} failed.", 'error');
+                    }
+                    
                     // Record dragonpay payment transaction
                     $data['result'] = $status;
                     $this->_recordPaymentStatus($data);
-
-                    if ($status === 0) {
-                        $result = true;
-                    } else {
-                        $this->getContext()->response->addMessage("Dragonpay cancel action on txnid {$data['txnId']} failed.", 'error');
-                    }
                 }
             }
             catch(Exception $e)

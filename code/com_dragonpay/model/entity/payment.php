@@ -10,6 +10,8 @@
 
 class ComDragonpayModelEntityPayment extends KModelEntityRow
 {
-    const STATUS_PENDING    = 'P';
-    const STATUS_SUCCESSFUL = 'S';
+    const STATUS_PENDING      = 'P';
+    const STATUS_SUCCESSFUL   = 'S';
+    const STATUS_VOID         = 'V';
+    const STATUS_VOID_ATTEMPT = 'AV';
 }
