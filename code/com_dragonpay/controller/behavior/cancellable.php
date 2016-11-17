@@ -119,6 +119,12 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
                     $resource = $client->CancelTransaction($parameters);
                     $status   = $resource->CancelTransactionResult;
 
+                    var_dump($url);
+                    var_dump($parameters);
+                    var_dump($resource);
+                    var_dump($status);
+                    die('test');
+
                     // Record dragonpay payment transaction
                     $data['result'] = $status;
                     $this->_recordPaymentStatus($data);
