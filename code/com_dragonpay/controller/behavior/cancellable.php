@@ -117,15 +117,17 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
                     $url      = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
                     $client   = new SoapClient("{$url}?wsdl");
                     $resource = $client->CancelTransaction($parameters);
+                    $status   = $resource->CancelTransactionResult;
 
-                    if ($resource->CancelTransactionResult === 0)
-                    {
-                        // Record dragonpay payment transaction
-                        $this->_recordPaymentStatus($data);
+                    // Record dragonpay payment transaction
+                    $data['result'] = $status;
+                    $this->_recordPaymentStatus($data);
 
+                    if ($status === 0) {
                         $result = true;
+                    } else {
+                        $this->getContext()->response->addMessage("Dragonpay cancel action on txnid {$data['txnId']} failed.", 'error');
                     }
-                    else $this->getContext()->response->addMessage("Dragonpay cancel action on txnid {$data['txnId']} failed.", 'error');
                 }
             }
             catch(Exception $e)
@@ -147,11 +149,16 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
         $controller = $this->getObject('com:dragonpay.controller.payment');
         $payment    = $controller->getModel()->id($data->txnId)->fetch();
 
-        if (count($payment))
+        if ($payment->isNew())
+        {
+            $data->id = $data->txnId;
+            $controller->add($data->toArray());
+        }
+        else
         {
             $controller
                 ->id($data->txnId)
-                ->edit(array('status' => 'V'))
+                ->edit($data->toArray())
             ;
         }
     }
