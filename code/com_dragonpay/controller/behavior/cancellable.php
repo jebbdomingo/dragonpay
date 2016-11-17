@@ -147,18 +147,18 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
     protected function _recordPaymentStatus($data)
     {
         $controller = $this->getObject('com:dragonpay.controller.payment');
-        $payment    = $controller->getModel()->id($data->txnId)->fetch();
+        $payment    = $controller->getModel()->id($data['txnId'])->fetch();
 
         if ($payment->isNew())
         {
-            $data->id = $data->txnId;
-            $controller->add($data->toArray());
+            $data['id'] = $data['txnId'];
+            $controller->add($data);
         }
         else
         {
             $controller
-                ->id($data->txnId)
-                ->edit($data->toArray())
+                ->id($data['txnId'])
+                ->edit($data)
             ;
         }
     }
