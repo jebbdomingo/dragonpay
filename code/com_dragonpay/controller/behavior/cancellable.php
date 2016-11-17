@@ -111,7 +111,7 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
                     $parameters = array(
                         'merchantId'  => $dragonpay->merchant_id,
                         'merchantPwd' => $dragonpay->password,
-                        'txnId'       => "Cancellation Request for Order #{$data['txnId']}",
+                        'txnId'       => $data['txnId'],
                     );
 
                     $url      = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
@@ -151,7 +151,8 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
 
         if ($payment->isNew())
         {
-            $data['id'] = $data['txnId'];
+            $data['id']    = $data['txnId'];
+            $data['txnid'] = $data['txnId'];
             $controller->add($data);
         }
         else
