@@ -1,6 +1,6 @@
 <?php
 /**
- * Nucleon Plus
+ * Nucleon Plus - Dragonpay
  *
  * @package     Nucleon Plus
  * @copyright   Copyright (C) 2015 - 2020 Nucleon Plus Co. (http://www.nucleonplus.com)
