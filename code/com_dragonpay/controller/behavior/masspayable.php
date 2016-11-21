@@ -139,7 +139,10 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                     }
                     else $error = $this->getMessage();
 
+                    $parameters = '<pre>' . print_r($parameters, true) . '</pre>';
+
                     $this->getContext()->response->addMessage($error, 'exception');
+                    $this->getContext()->response->addMessage($parameters, 'exception');
                 }
             }
         }
