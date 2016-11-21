@@ -119,16 +119,28 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
                 $parameters = array_merge($parameters, $data);
 
-                $url      = $env == 'production' ? "{$dragonpay->payout_url_prod}" : "{$dragonpay->payout_url_test}";
-                $client   = new SoapClient("{$url}?wsdl");
-                $resource = $client->RequestPayoutEx($parameters);
-                $result   = $resource->RequestPayoutExResult;
+                try
+                {
+                    $url      = $env == 'production' ? "{$dragonpay->payout_url_prod}" : "{$dragonpay->payout_url_test}";
+                    $client   = new SoapClient("{$url}?wsdl");
+                    $resource = $client->RequestPayoutEx($parameters);
+                    $result   = $resource->RequestPayoutExResult;
 
-                $controller->add(array(
-                    'id'     => $data['merchantTxnId'],
-                    'txnid'  => $data['merchantTxnId'],
-                    'result' => $result
-                ));
+                    $controller->add(array(
+                        'id'     => $data['merchantTxnId'],
+                        'txnid'  => $data['merchantTxnId'],
+                        'result' => $result
+                    ));
+                }
+                catch(Exception $e)
+                {
+                    if ($e instanceof SoapFault) {
+                        $error = "SOAP Fault: (faultcode: {$e->faultcode}, faultstring: {$e->faultstring})";
+                    }
+                    else $error = $this->getMessage();
+
+                    $this->getContext()->response->addMessage($error, 'exception');
+                }
             }
         }
     }
