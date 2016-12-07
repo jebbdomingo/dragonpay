@@ -96,7 +96,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             $entity    = $this->getEntity($command);
             $data      = $this->getData($entity);
 
-            $datum = array(
+            $parameters = array(
                 'merchantId'    => $dragonpay->merchant_id,
                 'password'      => $dragonpay->password,
                 'merchantTxnId' => $data['txnid'],
@@ -119,7 +119,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             ));
 
             $resource = $client->__soapCall('GetTxnToken',
-                array('parameters' => $datum),
+                array($parameters),
                 array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
             );
 
@@ -127,7 +127,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             echo '<br /><br />';
             var_dump($client);
             echo '<br /><br />';
-            var_dump(array('parameters' => $datum));
+            var_dump($datum);
             echo '<br /><br />';
             var_dump($resource);
             die('test');
