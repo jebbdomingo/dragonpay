@@ -112,7 +112,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
 
             $client = new SoapClient(null, array(
                 'location' => $url,
-                'uri'      => "https://gw.dragonpay.ph/DragonPayWebService/MerchantService/",
+                'uri'      => "https://gw.dragonpay.ph/DragonPayWebService/",
                 'trace'    => 1,
             ));
 
