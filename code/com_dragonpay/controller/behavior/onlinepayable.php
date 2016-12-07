@@ -113,8 +113,8 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
 
 
             $client = new SoapClient(null, array(
-                'location' => $url,
-                'uri'      => "https://gw.dragonpay.ph/DragonPayWebService/",
+                'location' => 'https://gw.dragonpay.ph/DragonPayWebService/MerchantService.asmx',
+                'uri'      => 'https://gw.dragonpay.ph/DragonPayWebService/',
                 'trace'    => 1,
             ));
 
@@ -123,7 +123,10 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
                 array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
             );
 
+            var_dump($client);
+            echo '<br /><br />';
             var_dump($parameters);
+            echo '<br /><br />';
             var_dump($resource);
             die('test');
 
