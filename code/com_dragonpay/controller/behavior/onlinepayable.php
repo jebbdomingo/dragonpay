@@ -41,9 +41,6 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
 
         $this->_actions = KObjectConfig::unbox($config->actions);
         $this->_columns = KObjectConfig::unbox($config->columns);
-
-        ini_set('soap.wsdl_cache_enabled', 0);
-        ini_set('soap.wsdl_cache_ttl', 0);
     }
 
     /**
@@ -106,31 +103,32 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
                 'email'         => $this->getObject('user')->getEmail(),
             );
 
-            $url = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
-            // $client   = new SoapClient("{$url}?wsdl");
+            // $url = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
+
+            $wsdl   = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayMerchantService.wsdl.xml';
+            $client = new SoapClient($wsdl);
 
 
 
+            // $client = new SoapClient(null, array(
+            //     'location' => 'https://gw.dragonpay.ph/DragonPayWebService/MerchantService.asmx',
+            //     'uri'      => 'https://gw.dragonpay.ph/DragonPayWebService/',
+            //     'trace'    => 1,
+            // ));
 
-            $client = new SoapClient(null, array(
-                'location' => 'https://gw.dragonpay.ph/DragonPayWebService/MerchantService.asmx',
-                'uri'      => 'https://gw.dragonpay.ph/DragonPayWebService/',
-                'trace'    => 1,
-            ));
-
-            $resource = $client->__soapCall('GetTxnToken',
-                array('parameters' => $parameters),
-                array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
-            );
+            // $resource = $client->__soapCall('GetTxnToken',
+            //     array('parameters' => $parameters),
+            //     array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
+            // );
             
-            var_dump($client->__getLastRequest());
-            echo '<br /><br />';
-            var_dump($client);
-            echo '<br /><br />';
-            var_dump($parameters);
-            echo '<br /><br />';
-            var_dump($resource);
-            die('test');
+            // var_dump($client->__getLastRequest());
+            // echo '<br /><br />';
+            // var_dump($client);
+            // echo '<br /><br />';
+            // var_dump($parameters);
+            // echo '<br /><br />';
+            // var_dump($resource);
+            // die('test');
 
 
 

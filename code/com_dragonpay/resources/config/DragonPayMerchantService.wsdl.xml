@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://api.dragonpay.ph/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://api.dragonpay.ph/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://api.dragonpay.ph/">
+      <s:element name="GetCountries">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCountriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCountriesResult" type="tns:ArrayOfCountry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCountry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Country" nillable="true" type="tns:Country" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Country">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProcessors">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProcessorsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessorsResult" type="tns:ArrayOfProcessorInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProcessorInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProcessorInfo" nillable="true" type="tns:ProcessorInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProcessorInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="procId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="shortName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="longName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="logo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="currencies" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="realTime" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="defaultBillerId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="hasTxnPwd" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="hasManualEnrollment" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="type" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="remarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="dayOfWeek" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="startTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="endTime" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="minAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="maxAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="mustRedirect" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="surcharge" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAvailableProcessors">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableProcessorsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableProcessorsResult" type="tns:ArrayOfProcessorInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txnId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTxnStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnRefNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txnId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnRefNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTxnRefNoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTxnId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="ccy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="param1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="param2" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTxnTokenResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateLifetimeUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="prefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateLifetimeUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateLifetimeUserResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTxnId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CancelTransactionResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBillingInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTxnId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="telNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBillingInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendBillingInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendShippingInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTxnId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="middleName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="barangay" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="province" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="landmark" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="telNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendShippingInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendShippingInfoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefundTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="refNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefundTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefundTransactionResult" type="tns:RefundStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RefundStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="result" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CancelRecurringTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="refNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelRecurringTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CancelRecurringTransactionResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SplitPayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="refno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="details" type="tns:ArrayOfSplitPayment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSplitPayment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SplitPayment" nillable="true" type="tns:SplitPayment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SplitPayment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SplitPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SplitPaymentResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateExpressTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTxnId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="param1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="param2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="procId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateExpressTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateExpressTransactionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMerchantTxns">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dStart" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dEnd" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMerchantTxnsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMerchantTxnsResult" type="tns:ArrayOfTransaction" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransaction">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Transaction" nillable="true" type="tns:Transaction" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Transaction">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="refNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="refDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="merchantTxnId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="procId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="procMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billerId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="settleDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="param1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="param2" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMerchantSettledTxns">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dStart" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dEnd" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMerchantSettledTxnsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMerchantSettledTxnsResult" type="tns:ArrayOfTransaction" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSwitchTxnLogs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="refNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSwitchTxnLogsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSwitchTxnLogsResult" type="tns:ArrayOfTransactionLog" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransactionLog">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransactionLog" nillable="true" type="tns:TransactionLog" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransactionLog">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="refNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="refDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTxn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="refNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTxnResult" type="tns:Transaction" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnExpiryDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="merchantId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="refNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTxnExpiryDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetTxnExpiryDateResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCountriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCountries" />
+  </wsdl:message>
+  <wsdl:message name="GetCountriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCountriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessorsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcessors" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessorsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableProcessorsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableProcessors" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableProcessorsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableProcessorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTxnStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTxnStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnRefNoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTxnRefNo" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnRefNoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTxnRefNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTxnToken" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTxnTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateLifetimeUserSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateLifetimeUser" />
+  </wsdl:message>
+  <wsdl:message name="CreateLifetimeUserSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateLifetimeUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelTransaction" />
+  </wsdl:message>
+  <wsdl:message name="CancelTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendBillingInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendBillingInfo" />
+  </wsdl:message>
+  <wsdl:message name="SendBillingInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendBillingInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendShippingInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendShippingInfo" />
+  </wsdl:message>
+  <wsdl:message name="SendShippingInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendShippingInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="RefundTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:RefundTransaction" />
+  </wsdl:message>
+  <wsdl:message name="RefundTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:RefundTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelRecurringTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelRecurringTransaction" />
+  </wsdl:message>
+  <wsdl:message name="CancelRecurringTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelRecurringTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SplitPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:SplitPayment" />
+  </wsdl:message>
+  <wsdl:message name="SplitPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:SplitPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateExpressTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateExpressTransaction" />
+  </wsdl:message>
+  <wsdl:message name="CreateExpressTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateExpressTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantTxnsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMerchantTxns" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantTxnsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMerchantTxnsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantSettledTxnsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMerchantSettledTxns" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantSettledTxnsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMerchantSettledTxnsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSwitchTxnLogsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSwitchTxnLogs" />
+  </wsdl:message>
+  <wsdl:message name="GetSwitchTxnLogsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSwitchTxnLogsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTxn" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTxnResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnExpiryDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTxnExpiryDate" />
+  </wsdl:message>
+  <wsdl:message name="GetTxnExpiryDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTxnExpiryDateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MerchantServiceSoap">
+    <wsdl:operation name="GetCountries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get list of countries</wsdl:documentation>
+      <wsdl:input message="tns:GetCountriesSoapIn" />
+      <wsdl:output message="tns:GetCountriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get list of processors</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessorsSoapIn" />
+      <wsdl:output message="tns:GetProcessorsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableProcessors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get list of available processors</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableProcessorsSoapIn" />
+      <wsdl:output message="tns:GetAvailableProcessorsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get transaction status</wsdl:documentation>
+      <wsdl:input message="tns:GetTxnStatusSoapIn" />
+      <wsdl:output message="tns:GetTxnStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnRefNo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve Dragonpay refno</wsdl:documentation>
+      <wsdl:input message="tns:GetTxnRefNoSoapIn" />
+      <wsdl:output message="tns:GetTxnRefNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnToken">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get transaction token</wsdl:documentation>
+      <wsdl:input message="tns:GetTxnTokenSoapIn" />
+      <wsdl:output message="tns:GetTxnTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateLifetimeUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create lifetime user id</wsdl:documentation>
+      <wsdl:input message="tns:CreateLifetimeUserSoapIn" />
+      <wsdl:output message="tns:CreateLifetimeUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Void transaction</wsdl:documentation>
+      <wsdl:input message="tns:CancelTransactionSoapIn" />
+      <wsdl:output message="tns:CancelTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBillingInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send Billing Info via SOAP</wsdl:documentation>
+      <wsdl:input message="tns:SendBillingInfoSoapIn" />
+      <wsdl:output message="tns:SendBillingInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendShippingInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Send Shipping Info via SOAP</wsdl:documentation>
+      <wsdl:input message="tns:SendShippingInfoSoapIn" />
+      <wsdl:output message="tns:SendShippingInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefundTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Refund a particular refno</wsdl:documentation>
+      <wsdl:input message="tns:RefundTransactionSoapIn" />
+      <wsdl:output message="tns:RefundTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelRecurringTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancel a recurring transaction</wsdl:documentation>
+      <wsdl:input message="tns:CancelRecurringTransactionSoapIn" />
+      <wsdl:output message="tns:CancelRecurringTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SplitPayment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submit split payment details</wsdl:documentation>
+      <wsdl:input message="tns:SplitPaymentSoapIn" />
+      <wsdl:output message="tns:SplitPaymentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateExpressTransaction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submit direct payment request for specific proc</wsdl:documentation>
+      <wsdl:input message="tns:CreateExpressTransactionSoapIn" />
+      <wsdl:output message="tns:CreateExpressTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantTxns">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all txns for a date range for a particular merchant</wsdl:documentation>
+      <wsdl:input message="tns:GetMerchantTxnsSoapIn" />
+      <wsdl:output message="tns:GetMerchantTxnsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantSettledTxns">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all settled txns for a date range for a particular merchant</wsdl:documentation>
+      <wsdl:input message="tns:GetMerchantSettledTxnsSoapIn" />
+      <wsdl:output message="tns:GetMerchantSettledTxnsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSwitchTxnLogs">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get switch log details for a particular refno</wsdl:documentation>
+      <wsdl:input message="tns:GetSwitchTxnLogsSoapIn" />
+      <wsdl:output message="tns:GetSwitchTxnLogsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTxn">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a particular txn</wsdl:documentation>
+      <wsdl:input message="tns:GetTxnSoapIn" />
+      <wsdl:output message="tns:GetTxnSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnExpiryDate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the payment expiryt date of a particular txn</wsdl:documentation>
+      <wsdl:input message="tns:GetTxnExpiryDateSoapIn" />
+      <wsdl:output message="tns:GetTxnExpiryDateSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MerchantServiceSoap" type="tns:MerchantServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCountries">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetCountries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessors">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetProcessors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableProcessors">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetAvailableProcessors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnStatus">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetTxnStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnRefNo">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetTxnRefNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnToken">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetTxnToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLifetimeUser">
+      <soap:operation soapAction="http://api.dragonpay.ph/CreateLifetimeUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTransaction">
+      <soap:operation soapAction="http://api.dragonpay.ph/CancelTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBillingInfo">
+      <soap:operation soapAction="http://api.dragonpay.ph/SendBillingInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendShippingInfo">
+      <soap:operation soapAction="http://api.dragonpay.ph/SendShippingInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefundTransaction">
+      <soap:operation soapAction="http://api.dragonpay.ph/RefundTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelRecurringTransaction">
+      <soap:operation soapAction="http://api.dragonpay.ph/CancelRecurringTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SplitPayment">
+      <soap:operation soapAction="http://api.dragonpay.ph/SplitPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateExpressTransaction">
+      <soap:operation soapAction="http://api.dragonpay.ph/CreateExpressTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantTxns">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetMerchantTxns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantSettledTxns">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetMerchantSettledTxns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSwitchTxnLogs">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetSwitchTxnLogs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxn">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetTxn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnExpiryDate">
+      <soap:operation soapAction="http://api.dragonpay.ph/GetTxnExpiryDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MerchantServiceSoap12" type="tns:MerchantServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCountries">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetCountries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessors">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetProcessors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableProcessors">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetAvailableProcessors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnStatus">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetTxnStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnRefNo">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetTxnRefNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnToken">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetTxnToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLifetimeUser">
+      <soap12:operation soapAction="http://api.dragonpay.ph/CreateLifetimeUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTransaction">
+      <soap12:operation soapAction="http://api.dragonpay.ph/CancelTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBillingInfo">
+      <soap12:operation soapAction="http://api.dragonpay.ph/SendBillingInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendShippingInfo">
+      <soap12:operation soapAction="http://api.dragonpay.ph/SendShippingInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefundTransaction">
+      <soap12:operation soapAction="http://api.dragonpay.ph/RefundTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelRecurringTransaction">
+      <soap12:operation soapAction="http://api.dragonpay.ph/CancelRecurringTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SplitPayment">
+      <soap12:operation soapAction="http://api.dragonpay.ph/SplitPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateExpressTransaction">
+      <soap12:operation soapAction="http://api.dragonpay.ph/CreateExpressTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantTxns">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetMerchantTxns" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantSettledTxns">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetMerchantSettledTxns" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSwitchTxnLogs">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetSwitchTxnLogs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxn">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetTxn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTxnExpiryDate">
+      <soap12:operation soapAction="http://api.dragonpay.ph/GetTxnExpiryDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MerchantService">
+    <wsdl:port name="MerchantServiceSoap" binding="tns:MerchantServiceSoap">
+      <soap:address location="https://gw.dragonpay.ph/DragonPayWebService/MerchantService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MerchantServiceSoap12" binding="tns:MerchantServiceSoap12">
+      <soap12:address location="https://gw.dragonpay.ph/DragonPayWebService/MerchantService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
