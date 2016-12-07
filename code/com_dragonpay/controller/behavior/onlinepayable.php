@@ -100,8 +100,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
                 'merchantId'    => $dragonpay->merchant_id,
                 'password'      => $dragonpay->password,
                 'merchantTxnId' => $data['txnid'],
-                // 'amount'        => number_format($data['amount'], 2, '.', ''),
-                'amount'        => $data['amount'],
+                'amount'        => number_format($data['amount'], 2, '.', ''),
                 'ccy'           => 'PHP',
                 'description'   => 'Order description.',
                 'email'         => $this->getObject('user')->getEmail(),
@@ -120,6 +119,8 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
                 array($parameters),
                 array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
             );
+
+            var_dump($parameters);
 
             var_dump($resource);
             die('test');
