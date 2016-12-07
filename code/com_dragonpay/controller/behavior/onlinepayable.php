@@ -107,27 +107,27 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             );
 
             $url = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
-            // $client   = new SoapClient($url);
+            $client   = new SoapClient("{$url}?wsdl");
 
 
 
 
-            $client = new SoapClient(null, array(
-                'location' => 'https://gw.dragonpay.ph/DragonPayWebService/MerchantService.asmx',
-                'uri'      => 'https://gw.dragonpay.ph/DragonPayWebService/',
-                'trace'    => 1,
-            ));
+            // $client = new SoapClient(null, array(
+            //     'location' => 'https://gw.dragonpay.ph/DragonPayWebService/MerchantService.asmx',
+            //     'uri'      => 'https://gw.dragonpay.ph/DragonPayWebService/',
+            //     'trace'    => 1,
+            // ));
 
             $resource = $client->__soapCall('GetTxnToken',
-                array('parameters' => $datum),
-                array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
+                array('parameters' => $datum)
+                // array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
             );
 
             var_dump($client->__getLastRequest());
             echo '<br /><br />';
             var_dump($client);
             echo '<br /><br />';
-            var_dump($parameters);
+            var_dump(array('parameters' => $datum));
             echo '<br /><br />';
             var_dump($resource);
             die('test');
