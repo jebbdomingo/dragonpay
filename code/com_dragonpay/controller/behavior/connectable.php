@@ -81,14 +81,9 @@ class ComDragonpayControllerBehaviorConnectable extends KControllerBehaviorAbstr
             {
                 $env = getenv('APP_ENV');
 
-                // @todo move dragonpay config to its own table
-                $config = $this->getObject('com://admin/nucleonplus.model.configs')->item('dragonpay')->fetch();
-
                 // Test payout api connection
-                $dragonpay = $config->getJsonValue();
-                $url       = $env == 'production' ? "{$dragonpay->payout_url_prod}" : "{$dragonpay->payout_url_test}";
-                $client    = new SoapClient("{$url}?wsdl", array('exceptions' => 1));
-
+                $wsdl   = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayMerchantService.wsdl.xml';
+                $client = new SoapClient($wsdl, array('exceptions' => 1));
                 $result = true;
             }
             catch(Exception $e)

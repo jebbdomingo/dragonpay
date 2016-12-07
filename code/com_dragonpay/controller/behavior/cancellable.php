@@ -114,16 +114,14 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
                         'merchantTxnId' => $data['txnId'],
                     );
 
-                    $url      = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
-                    $client   = new SoapClient("{$url}?wsdl");
+                    $wsdl     = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayMerchantService.wsdl.xml';
+                    $client   = new SoapClient($wsdl);
                     $resource = $client->CancelTransaction($parameters);
                     $status   = $resource->CancelTransactionResult;
-
 
                     if ($status === 0)
                     {
                         $data['status'] = ComDragonpayModelEntityPayment::STATUS_VOID;
-                        
                         $result = true;
                     }
                     else

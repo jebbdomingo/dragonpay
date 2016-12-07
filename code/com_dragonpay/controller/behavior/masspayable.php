@@ -121,8 +121,8 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
                 try
                 {
-                    $url      = $env == 'production' ? "{$dragonpay->payout_url_prod}" : "{$dragonpay->payout_url_test}";
-                    $client   = new SoapClient("{$url}?wsdl");
+                    $wsdl     = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayMerchantService.wsdl.xml';
+                    $client   = new SoapClient($wsdl);
                     $resource = $client->RequestPayoutEx($parameters);
                     $result   = $resource->RequestPayoutExResult;
 
