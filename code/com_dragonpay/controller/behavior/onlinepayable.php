@@ -107,7 +107,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             );
 
             $url      = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
-            $client   = new SoapClient("{$url}?wsdl");
+            $client   = new SoapClient($url);
             $resource = $client->GetTxnToken($parameters);
             $token    = $resource->GetTxnTokenResult;
 
