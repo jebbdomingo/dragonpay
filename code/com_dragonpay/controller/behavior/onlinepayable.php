@@ -41,6 +41,9 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
 
         $this->_actions = KObjectConfig::unbox($config->actions);
         $this->_columns = KObjectConfig::unbox($config->columns);
+
+        ini_set('soap.wsdl_cache_enabled', 0);
+        ini_set('soap.wsdl_cache_ttl', 0);
     }
 
     /**
