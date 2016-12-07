@@ -106,8 +106,11 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
                 'email'         => $this->getObject('user')->getEmail(),
             );
 
-            $url      = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
+            $url = $env == 'production' ? "{$dragonpay->merchant_service_prod}" : "{$dragonpay->merchant_service_test}";
             // $client   = new SoapClient($url);
+
+
+
 
             $client = new SoapClient(null, array(
                 'location' => $url,
@@ -115,13 +118,12 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
                 'trace'    => 1,
             ));
 
-            $resource = $client->__soapCall("GetTxnToken",
+            $resource = $client->__soapCall('GetTxnToken',
                 $parameters,
                 array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
             );
 
             var_dump($parameters);
-
             var_dump($resource);
             die('test');
 
