@@ -119,7 +119,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             ));
 
             $resource = $client->__soapCall('GetTxnToken',
-                array(
+                array(array(
                     new SoapParam($parameters['merchantId'], 'merchantId'),
                     new SoapParam($parameters['password'], 'password'),
                     new SoapParam($parameters['merchantTxnId'], 'merchantTxnId'),
@@ -127,7 +127,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
                     new SoapParam($parameters['ccy'], 'ccy'),
                     new SoapParam($parameters['description'], 'description'),
                     new SoapParam($parameters['email'], 'email')
-                ),
+                )),
                 array('soapaction' => 'http://api.dragonpay.ph/GetTxnToken')
             );
 
