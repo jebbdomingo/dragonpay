@@ -12,7 +12,7 @@
  * Dragonpay Payment Controller Behavior.
  *
  * @author  Jebb Domingo <https://github.com/jebbdomingo>
- * @package Dragonpay\Component\Payout
+ * @package Dragonpay\Controller\Behavior
  */
 class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstract
 {
@@ -151,7 +151,7 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
 
     protected function _recordPaymentStatus($data)
     {
-        $controller = $this->getObject('com:dragonpay.controller.payment');
+        $controller = $this->getObject($this->_controller);
         $payment    = $controller->getModel()->id($data['txnId'])->fetch();
 
         if ($payment->isNew())
