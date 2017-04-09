@@ -1,0 +1,24 @@
+{
+    "name": "jebbdomingo/dragonpay",
+    "type": "joomlatools-extension",
+    "license": "GPLv3",
+    "description": "Nucleon Plus - Dragonpay",
+    "keywords": ["joomla", "extension", "support"],
+    "homepage": "https://github.com/jebbdomingo/dragonpay",
+    "authors": [
+        {
+            "name": "Jebb Domingo",
+            "email": "jebb.domingo@gmail.com",
+            "homepage": "http://github.com/jebbdomingo"
+        },
+        {
+        "name": "Nucleon Plus",
+        "email": "info@nucleonplus.com",
+        "homepage": "http://www.nucleonplus.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "joomlatools/installer": "*",
+    }
+}
