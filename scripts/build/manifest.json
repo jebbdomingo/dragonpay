@@ -1,0 +1,6 @@
+{
+  "packages": [
+    {"title": "Joomlatools Framework", "path": "framework"},
+    {"title": "Nucleon Plus Dragonpay", "path": "dragonpay"}
+  ]
+}
