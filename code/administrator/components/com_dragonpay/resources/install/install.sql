@@ -34,6 +34,12 @@ CREATE TABLE `#__dragonpay_paymentrates` (
   KEY `name` (`description`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `#__dragonpay_paymentrates` (`dragonpay_paymentrate_id`, `mode`, `description`, `amount`)
+VALUES
+  (1,1,'Online Banking',10.00),
+  (2,2,'Over-the-Counter Banking and ATM',15.00),
+  (3,4,'Over-the-Counter non-Bank',20.00);
+
 
 
 # Dump of table #__dragonpay_payments
