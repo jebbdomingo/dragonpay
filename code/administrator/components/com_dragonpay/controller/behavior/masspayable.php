@@ -62,7 +62,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
     {
         $config->append(array(
             'priority'   => self::PRIORITY_LOWEST,
-            'controller' => 'com:dragonpay.controller.payout',
+            'controller' => 'com://admin/dragonpay.controller.payout',
             'actions'    => array(),
             'columns'    => array(
                 'merchantTxnId' => 'id',
