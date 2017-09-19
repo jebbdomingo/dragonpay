@@ -130,7 +130,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                     $controller->add(array(
                         'id'     => $data['merchantTxnId'],
                         'txnid'  => $data['merchantTxnId'],
-                        'result' => $result
+                        'result' => (string) $result
                     ));
                 }
                 catch(Exception $e)
