@@ -62,7 +62,7 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
     {
         $config->append(array(
             'priority'   => self::PRIORITY_LOWEST,
-            'controller' => 'com:dragonpay.controller.payment',
+            'controller' => 'com://admin/dragonpay.controller.payment',
             'actions'    => array(),
             'columns'    => array(
                 'txnId' => 'id',
@@ -99,7 +99,7 @@ class ComDragonpayControllerBehaviorCancellable extends KControllerBehaviorAbstr
                 $env = getenv('APP_ENV');
 
                 // @todo move dragonpay config to its own table
-                $config = $this->getObject('com://admin/nucleonplus.model.configs')->item('dragonpay')->fetch();
+                $config = $this->getObject('com://admin/rewardlabs.model.configs')->item('dragonpay')->fetch();
 
                 $dragonpay = $config->getJsonValue();
                 $entities  = $this->getEntity($command);

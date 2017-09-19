@@ -87,7 +87,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
             $env = getenv('APP_ENV');
 
             // @todo move dragonpay config to its own table
-            $config = $this->getObject('com://admin/nucleonplus.model.configs')->item('dragonpay')->fetch();
+            $config = $this->getObject('com://admin/rewardlabs.model.configs')->item('dragonpay')->fetch();
 
             $dragonpay = $config->getJsonValue();
             $entity    = $this->getEntity($command);

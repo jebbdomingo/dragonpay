@@ -98,10 +98,8 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
         if ($controller instanceof KControllerModellable && in_array($action, $this->_actions))
         {
-            $env = getenv('APP_ENV');
-
             // @todo move dragonpay config to its own table
-            $config = $this->getObject('com://admin/nucleonplus.model.configs')->item('dragonpay')->fetch();
+            $config = $this->getObject('com://site/rewardlabs.model.configs')->item('dragonpay')->fetch();
 
             $dragonpay = $config->getJsonValue();
             $entities  = $this->getEntity($command);
