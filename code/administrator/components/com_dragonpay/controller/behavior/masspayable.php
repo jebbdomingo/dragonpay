@@ -138,7 +138,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                     if ($e instanceof SoapFault) {
                         $error = "SOAP Fault: (faultcode: {$e->faultcode}, faultstring: {$e->faultstring})";
                     }
-                    else $error = $this->getMessage();
+                    else $error = $e->getMessage();
 
                     $parameters = '<pre>' . print_r($parameters, true) . '</pre>';
 
