@@ -98,6 +98,8 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
         if ($controller instanceof KControllerModellable && in_array($action, $this->_actions))
         {
+            $env = getenv('APP_ENV');
+
             // @todo move dragonpay config to its own table
             $config = $this->getObject('com://site/rewardlabs.model.configs')->item('dragonpay')->fetch();
 
@@ -119,8 +121,9 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
                 try
                 {
-                    $wsdl     = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayPayoutService.wsdl.xml';
-                    $client   = new SoapClient($wsdl);
+                    // $wsdl     = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayPayoutService.wsdl.xml';
+                    $wsdl     = $env == 'production' ? $dragonpay->payout_url_prod : $dragonpay->payout_url_test;
+                    $client   = new SoapClient($wsdl . '?WSDL');
                     $resource = $client->RequestPayoutEx($parameters);
                     $result   = $resource->RequestPayoutExResult;
 
