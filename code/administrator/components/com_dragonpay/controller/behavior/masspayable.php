@@ -149,7 +149,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                         $entity->$error_callback();
 
                         $error = 'Dragonpay masspayout failed, please contact technical support.';
-                        $this->getContext()->response->addMessage($error, 'exception');
+                        $this->getContext()->response->addMessage($error, KControllerResponse::FLASH_WARNING);
                     }
 
 
@@ -165,8 +165,8 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
                     $parameters = '<pre>' . print_r($parameters, true) . '</pre>';
 
-                    $this->getContext()->response->addMessage($error, 'exception');
-                    $this->getContext()->response->addMessage($parameters, 'exception');
+                    $this->getContext()->response->addMessage($error, KControllerResponse::FLASH_WARNING);
+                    $this->getContext()->response->addMessage($parameters, KControllerResponse::FLASH_WARNING);
                 }
             }
         }
