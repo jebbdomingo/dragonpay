@@ -136,15 +136,23 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                     $resource = $client->RequestPayoutEx($parameters);
                     $result   = $resource->RequestPayoutExResult;
 
-                    $controller->add(array(
-                        'id'     => $data['merchantTxnId'],
-                        'txnid'  => $data['merchantTxnId'],
-                        'result' => (string) $result
-                    ));
-
-                    if ($result != 0) {
-                        $entity->$error_callback();
+                    if ($result == 0)
+                    {
+                        $controller->add(array(
+                            'id'     => $data['merchantTxnId'],
+                            'txnid'  => $data['merchantTxnId'],
+                            'result' => (string) $result
+                        ));
                     }
+                    else
+                    {
+                        $entity->$error_callback();
+
+                        $error = 'Dragonpay masspayout failed, please contact technical support.';
+                        $this->getContext()->response->addMessage($error, 'exception');
+                    }
+
+
                 }
                 catch(Exception $e)
                 {
