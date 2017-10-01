@@ -55,7 +55,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
         $this->_controller        = $config->controller;
         $this->_actions           = KObjectConfig::unbox($config->actions);
-        $this->_on_error_callback = KObjectConfig::unbox($config->onErrorCallack);
+        $this->_on_error_callback = $config->onErrorCallack;
         $this->_columns           = KObjectConfig::unbox($config->columns);
     }
 
@@ -71,7 +71,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
         $config->append(array(
             'controller'     => 'com://admin/dragonpay.controller.payout',
             'actions'        => array('after.processing'),
-            'onErrorCallack' => array('save'), // Entity method to call when dragonpay payout failed
+            'onErrorCallack' => 'save', // Entity method to call when dragonpay payout failed
             'columns'        => array(
                 'merchantTxnId' => 'id',
                 'userName'      => 'username',
