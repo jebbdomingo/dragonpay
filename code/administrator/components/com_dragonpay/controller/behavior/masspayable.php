@@ -31,6 +31,13 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
     protected $_actions;
 
     /**
+     * On error callback
+     *
+     * @var array
+     */
+    protected $_on_error_callback;
+
+    /**
      * List of columns
      *
      * @var array
@@ -46,9 +53,10 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
     {
         parent::__construct($config);
 
-        $this->_controller = $config->controller;
-        $this->_actions    = KObjectConfig::unbox($config->actions);
-        $this->_columns    = KObjectConfig::unbox($config->columns);
+        $this->_controller        = $config->controller;
+        $this->_actions           = KObjectConfig::unbox($config->actions);
+        $this->_on_error_callback = KObjectConfig::unbox($config->onErrorCallack);
+        $this->_columns           = KObjectConfig::unbox($config->columns);
     }
 
     /**
@@ -61,10 +69,10 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'priority'   => self::PRIORITY_LOWEST,
-            'controller' => 'com://admin/dragonpay.controller.payout',
-            'actions'    => array(),
-            'columns'    => array(
+            'controller'     => 'com://admin/dragonpay.controller.payout',
+            'actions'        => array('after.processing'),
+            'onErrorCallack' => array('save'), // Entity method to call when dragonpay payout failed
+            'columns'        => array(
                 'merchantTxnId' => 'id',
                 'userName'      => 'username',
                 'amount'        => 'amount',
@@ -121,7 +129,6 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
                 try
                 {
-                    // $wsdl     = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayPayoutService.wsdl.xml';
                     $wsdl     = $env == 'production' ? $dragonpay->payout_url_prod : $dragonpay->payout_url_test;
                     $client   = new SoapClient($wsdl . '?WSDL');
                     $resource = $client->RequestPayoutEx($parameters);
@@ -135,6 +142,9 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                 }
                 catch(Exception $e)
                 {
+                    $method = $this->_on_error_callback;
+                    $entity->$method();
+
                     if ($e instanceof SoapFault) {
                         $error = "SOAP Fault: (faultcode: {$e->faultcode}, faultstring: {$e->faultstring})";
                     }
