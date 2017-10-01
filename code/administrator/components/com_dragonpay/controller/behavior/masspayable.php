@@ -106,13 +106,15 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
         if ($controller instanceof KControllerModellable && in_array($action, $this->_actions))
         {
-            $env = getenv('APP_ENV');
+            $env            = getenv('APP_ENV');
+            $error_callback = $this->_on_error_callback;
 
             // @todo move dragonpay config to its own table
             $config = $this->getObject('com://site/rewardlabs.model.configs')->item('dragonpay')->fetch();
 
             $dragonpay = $config->getJsonValue();
             $entities  = $this->getEntity($command);
+
 
             foreach ($entities as $entity)
             {
@@ -139,11 +141,14 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                         'txnid'  => $data['merchantTxnId'],
                         'result' => (string) $result
                     ));
+
+                    if ($result != 0) {
+                        $entity->$error_callback();
+                    }
                 }
                 catch(Exception $e)
                 {
-                    $method = $this->_on_error_callback;
-                    $entity->$method();
+                    $entity->$error_callback();
 
                     if ($e instanceof SoapFault) {
                         $error = "SOAP Fault: (faultcode: {$e->faultcode}, faultstring: {$e->faultstring})";
