@@ -118,7 +118,8 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
             foreach ($entities as $entity)
             {
-                $data = $this->getData($entity);
+                $string_helper = $this->getObject('com://admin/dragonpay.template.helper.string');
+                $data          = $this->getData($entity);
 
                 $parameters = array(
                     'apiKey'      => $dragonpay->payout_api_key,
@@ -143,16 +144,19 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                             'txnid'  => $data['merchantTxnId'],
                             'result' => (string) $result
                         ));
+
+                        $message = $string_helper->humanizeResult($result);
+                        $this->getContext()->response->addMessage($message, KControllerResponse::FLASH_SUCCESS);
                     }
                     else
                     {
                         $entity->$error_callback();
 
-                        $error = 'Dragonpay masspayout failed, please contact technical support.';
+                        $error = $string_helper->humanizeResult($result);
+
+                        // $error = 'Dragonpay masspayout failed, please contact technical support.';
                         $this->getContext()->response->addMessage($error, KControllerResponse::FLASH_WARNING);
                     }
-
-
                 }
                 catch(Exception $e)
                 {
