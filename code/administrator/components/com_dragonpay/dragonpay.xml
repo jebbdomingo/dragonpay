@@ -31,6 +31,7 @@
             <folder>database</folder>
             <folder>model</folder>
             <folder>resources</folder>
+            <folder>template</folder>
         </files>
     </administration>
 
