@@ -142,17 +142,18 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                         $controller->add(array(
                             'id'     => $data['merchantTxnId'],
                             'txnid'  => $data['merchantTxnId'],
-                            'result' => (string) $result
+                            'result' => (string) $result,
+                            'status' => 'P',
                         ));
 
-                        $message = $string_helper->humanizeResult($result);
+                        $message = 'Dragonpay: ' . $string_helper->humanizeResult($result);
                         $this->getContext()->response->addMessage($message, KControllerResponse::FLASH_SUCCESS);
                     }
                     else
                     {
                         $entity->$error_callback();
 
-                        $error = $string_helper->humanizeResult($result);
+                        $error = 'Dragonpay: ' . $string_helper->humanizeResult($result);
 
                         // $error = 'Dragonpay masspayout failed, please contact technical support.';
                         $this->getContext()->response->addMessage($error, KControllerResponse::FLASH_WARNING);
@@ -163,11 +164,11 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                     $entity->$error_callback();
 
                     if ($e instanceof SoapFault) {
-                        $error = "SOAP Fault: (faultcode: {$e->faultcode}, faultstring: {$e->faultstring})";
+                        $error = "Dragonpay: SOAP Fault: (faultcode: {$e->faultcode}, faultstring: {$e->faultstring})";
                     }
                     else $error = $e->getMessage();
 
-                    $parameters = '<pre>' . print_r($parameters, true) . '</pre>';
+                    $parameters = 'Dragonpay: <pre>' . print_r($parameters, true) . '</pre>';
 
                     $this->getContext()->response->addMessage($error, KControllerResponse::FLASH_WARNING);
                     $this->getContext()->response->addMessage($parameters, KControllerResponse::FLASH_WARNING);
