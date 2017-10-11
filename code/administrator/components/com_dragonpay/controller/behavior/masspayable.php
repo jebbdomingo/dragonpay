@@ -106,7 +106,7 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
 
         if ($controller instanceof KControllerModellable && in_array($action, $this->_actions))
         {
-            $env            = getenv('APP_ENV');
+            $env            = getenv('HTTP_APP_ENV');
             $error_callback = $this->_on_error_callback;
 
             // @todo move dragonpay config to its own table

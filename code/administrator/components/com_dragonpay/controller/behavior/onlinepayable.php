@@ -84,7 +84,7 @@ class ComDragonpayControllerBehaviorOnlinepayable extends KControllerBehaviorAbs
 
         if (in_array($action, $this->_actions))
         {
-            $env = getenv('APP_ENV');
+            $env = getenv('HTTP_APP_ENV');
 
             // @todo move dragonpay config to its own table
             $config = $this->getObject('com://admin/rewardlabs.model.configs')->item('dragonpay')->fetch();

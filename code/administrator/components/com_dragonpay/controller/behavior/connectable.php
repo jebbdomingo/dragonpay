@@ -79,7 +79,7 @@ class ComDragonpayControllerBehaviorConnectable extends KControllerBehaviorAbstr
 
             try
             {
-                $env = getenv('APP_ENV');
+                $env = getenv('HTTP_APP_ENV');
 
                 // Test payout api connection
                 $wsdl   = dirname(__FILE__) . DIRECTORY_SEPARATOR . '../../resources/config/DragonPayMerchantService.wsdl.xml';
