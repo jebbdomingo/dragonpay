@@ -125,7 +125,6 @@ class ComDragonpayControllerBehaviorMasspayable extends KControllerBehaviorAbstr
                     'apiKey'      => $dragonpay->payout_api_key,
                     'currency'    => 'PHP',
                     'description' => "Payout Request for Payout #{$data['merchantTxnId']}",
-                    'procId'      => 'BDO'
                 );
 
                 $parameters = array_merge($parameters, $data);
